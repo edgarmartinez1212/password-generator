@@ -1,19 +1,21 @@
 // variables //
+// NON resetable variables
 let lowerCaseArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 let upperCaseArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 let numbersArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let specialArr = ["@", "%", "+", "\\", "/", "'", "!", "#", "$", "^", "?", ":", ",", ")", "(", "}", "{", "]", "[", "~", "-", "_", "."];
-let charactersArr = [];
-let myPassword = "";
 
-let passwordLength = "";
-let isLowerCase = false;
-let isUpperCase = false;
-let isNumber = false;
-let isSpecial = false;
+// resetable variables
+let charactersArr;
+let myPassword;
+let passwordLength;
+let isLowerCase;
+let isUpperCase;
+let isNumber;
+let isSpecial;
 
 // functions //
-// reset all variabls
+// reset resetable variables
 function resetAll() {
   charactersArr = [];
   myPassword = "";
@@ -29,12 +31,12 @@ function checkPasswordLength() {
   return passwordLength === "";
 }
 
-// returns random number upto max value
+// returns random number up to max value
 function getRandomNumber(max) {
   return Math.floor(Math.random() * max);
 }
 
-// creates myPassword using input length and chosen characters
+// creates myPassword using given password length and characters
 function createPassword() {
   passwordLength = Number(passwordLength);
   let index = 0;
@@ -49,7 +51,7 @@ function createPassword() {
   }
 }
 
-// creates array of users chosen characters
+// creates array of chosen characters types
 function createCharacterArr() {
   if (isLowerCase) charactersArr.push(lowerCaseArr);
   if (isUpperCase) charactersArr.push(upperCaseArr);
@@ -76,8 +78,10 @@ function getCharcterTypes() {
 function getPasswordLength() {
   passwordLength = prompt("Length of password [at least 8 characters, no more than 128]");
 
-  if (passwordLength === null)
+  if (passwordLength === null) {
+    passwordLength = "";
     return;
+  }
   if (Number(passwordLength) < 8 || Number(passwordLength) > 128 || isNaN(passwordLength)) {
     alert(`Must choose a length [8-128]`);
     passwordLength = "";
@@ -86,19 +90,24 @@ function getPasswordLength() {
 
 // validates password requirements
 function getPasswordRequirements() {
-  resetAll();
   while (checkPasswordLength()) {
     getPasswordLength();
 
     if (!checkPasswordLength()) {
       getCharcterTypes();
+    } else {
+      alert(`Goodbye!`);
+      return;
     }
   }
 }
 
+// resets resetable variables
+// gathers password requirements
 // creates myPassword
 // returns myPassword
 function generatePassword() {
+  resetAll();
   getPasswordRequirements();
   createCharacterArr();
   createPassword();
