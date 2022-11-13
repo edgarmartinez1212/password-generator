@@ -46,8 +46,6 @@ function createPassword() {
     }
     myPassword += charactersArr[index][getRandomNumber(charactersArr[index].length)];
     index++;
-
-    console.log(`i: ${i}\nindex: ${index}\nmyPassword: ${myPassword}`);
   }
 }
 
@@ -59,8 +57,7 @@ function createCharacterArr() {
   if (isSpecial) charactersArr.push(specialArr);
 }
 
-// password requirement 2
-// validates character types
+// password requirement 2: validates character types
 function getCharcterTypes() {
   isLowerCase = confirm("Include lowercase characters?");
   isUpperCase = confirm("Include uppercase characters?");
@@ -70,11 +67,11 @@ function getCharcterTypes() {
   if (!isLowerCase && !isUpperCase && !isNumber && !isSpecial) {
     alert(`Must select atleast 1 character type!`);
     passwordLength = "";
+    getCharcterTypes();
   }
 }
 
-// password requirement 1
-// validates password length
+// password requirement 1: validates password length
 function getPasswordLength() {
   passwordLength = prompt("Length of password [at least 8 characters, no more than 128]");
 
@@ -85,6 +82,7 @@ function getPasswordLength() {
   if (Number(passwordLength) < 8 || Number(passwordLength) > 128 || isNaN(passwordLength)) {
     alert(`Must choose a length [8-128]`);
     passwordLength = "";
+    getPasswordLength();
   }
 }
 
@@ -102,10 +100,7 @@ function getPasswordRequirements() {
   }
 }
 
-// resets resetable variables
-// gathers password requirements
-// creates myPassword
-// returns myPassword
+// resets resetable variables, gathers password requirements, creates myPassword, returns myPassword
 function generatePassword() {
   resetAll();
   getPasswordRequirements();
