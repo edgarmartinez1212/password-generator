@@ -66,7 +66,6 @@ function getCharcterTypes() {
 
   if (!isLowerCase && !isUpperCase && !isNumber && !isSpecial) {
     alert(`Must select atleast 1 character type!`);
-    passwordLength = "";
     getCharcterTypes();
   }
 }
